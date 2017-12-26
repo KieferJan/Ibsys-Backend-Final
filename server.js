@@ -50,12 +50,10 @@ fs.readFile(__dirname + '/uploads/'+fileName, function(err, data) {
         console.dir(result);
         console.log('Done');
         //Restructure the JSON
-        //var newJson = deleteDollar(result);
         var jsonString = JSON.stringify(result);
         //var parsedJson = JSON.parse(jsonString);
         var stringWODollar = jsonString.replaceAll('$', 'dollardollar');
         var parsedJson = JSON.parse(stringWODollar);
-        res.json(result);
 
         var new_task = new theTask();
         new_task.titel = 'Upload'+ Date.now();
@@ -66,23 +64,12 @@ fs.readFile(__dirname + '/uploads/'+fileName, function(err, data) {
                 console.log(err);
             }
 
-            //res.json(task);
-            //console.log(task);
-
+            res.json(task);
         });
     });
 });
 });
 
-deleteDollar = function(json) {
-    for (var keyName in json) {
-        var value = json[keyName];
-        if (value === '$') {
-            json[keyName] = 'dollardollar';
-        }
-    };
-    return json;
-};
 
 
 app.listen(port);
